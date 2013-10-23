@@ -19,10 +19,6 @@ queue()
 	.defer(d3.json, 'data/states.json')
 	.await(makeMap);
 
-}
-
-window.onLoad = init();
-
 function makeMap(error, state) {
 
 	// countries index
@@ -32,9 +28,33 @@ function makeMap(error, state) {
 		.append('path')
 		.attr('class', 'land')
 		.attr('d', path)
-		.on('mouseover', showStateName);
+		.on('mouseover', highlight)
+		.on('click', selection);
 }
 
-function showStateName(d, i) {
-	
+selectCount = 0;
+
+function highlight(d) {
+	console.log('state name');
+}
+// function lowlight(d) {
+// 	d3.select(this).style('fill', '#e5e5e5');
+// }
+function selection(d) {
+	selectCount++;
+	if (selectCount <= 2) {
+		console.log('state selected');
+		d3.select(this).style('fill', 'blue');
+	} else {
+		selectCount = 0;
+		d3.selectAll('.land').style('fill', '#e5e5e5')
+		d3.selectAll('.land').attr('class', 'land');
+	}
 } 
+
+}
+
+window.onLoad = init();
+
+
+
