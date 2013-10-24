@@ -87,8 +87,8 @@ function makeMap(error, state) {
 }
 
 // area by circle volumes
-var w = 400,
-	h = 400;
+var w = 200,
+	h = 200;
 
 var svgCircles = d3.select("#volumes").append("svg")
 	.attr("width", w)
@@ -102,34 +102,34 @@ var first = null;
 var second = null;
 
 function highlight(d) {
-	console.log('state name');
+	d3.select(this).style('opacity', 0.8);
 }
-// function lowlight(d) {
-// 	d3.select(this).style('fill', '#e5e5e5');
-// }
+function lowlight(d) {
+	d3.select(this).style('opacity', 1);
+}
 function selection(d) {
 	selectCount++;
 	if (selectCount <= 1) {
 		d3.select(this).style('fill', 'blue');
 		state = d.properties.STATE_ABBR;
 		value = getValue(waka, state);
-		first = value;
+		first = [state, value];
 		$('#lineup').append(state);
 		$('#number').append(value);
 	} else if (selectCount <= 2) {
-		console.log('state selected');
 		d3.select(this).style('fill', 'blue');
 		state = d.properties.STATE_ABBR;
 		value = getValue(waka, state);
-		second = value;
+		second = [state, value];
 		areas = [first, second];
 		drawCircle(areas);
 		$('#lineup').append(' vs. '+state);
-		$('#number').append(' vs. '+value);
+		$('#number').append(' | '+value);
 	} else {
 		selectCount = 0;
 		firstSelect = null;
 		secondSelect = null;
+		svgCircles.selectAll('circle').remove();
 		d3.selectAll('.land').style('fill', '#e5e5e5')
 		d3.selectAll('.land').attr('class', 'land');
 		$('#lineup').html('');
@@ -152,8 +152,9 @@ function drawCircle(area) {
 		.append('circle');
 
 	console.log(area);
-	circles.attr('cx', 200)
-		.attr('cy', 200)
+	circles.attr('cx', w/2)
+		.attr('cy', h/2)
+		.attr('fill', 'blue')
 		.attr('r', function(d) {
 			return d / 10;
 		})

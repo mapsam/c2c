@@ -30,24 +30,17 @@ nav h1 {
 p {
 	font-size:0.9em;
 	color:#555;
-	margin:0 200px 20px 0;
 }
 h1 {
-	font-size:2em;
-	color:#555;
-	font-weight:600;
-	margin-bottom:20px;
 }
 
 /* Map Styles */
 #map {
-	display:block;
-	background-color:white;
-	margin-bottom:20px;
+	display:inline-block;
 }
 .land {
 	fill:#e5e5e5;
-	stroke:white;
+	stroke:none;
 	stroke-width:2px;
 }
 .land:hover {
@@ -55,24 +48,6 @@ h1 {
 }
 /* Info Pan Styles */
 #info {
-	float:right;
-	margin-left:20px;
-	width:170px;
-	height:450px;
-}
-#info h1 {
-	font-size:1.3em;
-	font-weight:600;
-	color:#555;
-	letter-spacing:-1px;
-}
-#info h2 {
-	font-size:1.0em;
-	font-weight:300;
-	color:#888;
-}
-#info h3 {
-	font-size:1.0em;
-	font-weight:100;
-	color:#888;
+	display:inline-block;
+	text-align:center;
 }
