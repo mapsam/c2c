@@ -113,14 +113,14 @@ function selection(d) {
 		d3.select(this).style('fill', 'blue');
 		state = d.properties.STATE_ABBR;
 		value = getValue(waka, state);
-		first = [state, value];
+		first = value;
 		$('#lineup').append(state);
 		$('#number').append(value);
 	} else if (selectCount <= 2) {
 		d3.select(this).style('fill', 'blue');
 		state = d.properties.STATE_ABBR;
 		value = getValue(waka, state);
-		second = [state, value];
+		second = value;
 		areas = [first, second];
 		drawCircle(areas);
 		$('#lineup').append(' vs. '+state);
