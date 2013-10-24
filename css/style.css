@@ -41,7 +41,7 @@ h1 {
 
 /* Map Styles */
 #map {
-	float:left;
+	display:block;
 	background-color:white;
 	margin-bottom:20px;
 }
