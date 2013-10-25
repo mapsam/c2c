@@ -1,6 +1,6 @@
-dams
-====
+Country 2 Country
+=================
 
-USA dams d3 project
+A d3 project with [Lyzi Diamond](http://lyzidiamond.com).
 
-Working on a map to make it seem like I made it in illustrator
+Onward.
