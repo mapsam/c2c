@@ -35,19 +35,36 @@ h1 {
 }
 
 /* Map Styles */
-#map {
+#indexMap {
 	display:inline-block;
 }
 .land {
-	fill:#e5e5e5;
-	stroke:none;
+	fill:#c0c0c0;
+	stroke:#fff;
 	stroke-width:2px;
 }
 .land:hover {
 	fill:#c0c0c0;
 }
+.circle {
+	stroke-width:2px;
+	fill:none;
+}
+
+#compareMap {
+	display:block;
+}
+
+
 /* Info Pan Styles */
 #info {
 	display:inline-block;
 	text-align:center;
+	font-weight:600;
+}
+#first {
+	color:#B2AD28;
+}
+#second {
+	color:#458FB2;
 }

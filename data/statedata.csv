@@ -1,52 +1,51 @@
-state,number
-HI,100
-WA,22
-MT,100
-ME,100
-ND,100
-SD,100
-WY,100
-WI,100
-ID,100
-VT,100
-MN,100
-OR,100
-NH,100
-IA,100
-MA,100
-NE,100
-NY,100
-PA,100
-CT,100
-RI,100
-NJ,100
-IN,100
-NV,100
-UT,100
-CA,100
-OH,100
-IL,100
-DC,100
-DE,100
-WV,100
-MD,100
-CO,100
-KY,100
-KS,100
-VA,100
-MO,100
-AZ,100
-OK,100
-NC,100
-TN,100
-TX,100
-NM,100
-AL,100
-MS,100
-GA,100
-SC,100
-AR,100
-LA,100
-FL,100
-MI,100
-AK,100
+state,abbrev,area
+Alaska,AK,663267.26
+Texas,TX,268580.82
+California,CA,163695.57
+Montana,MT,147042.4
+New Mexico,NM,121589.48
+Arizona,AZ,113998.3
+Nevada,NV,110560.72
+Colorado,CO,104093.57
+Oregon,OR,98380.64
+Wyoming,WY,97813.56
+Michigan,MI,96716.11
+Minnesota,MN,86938.87
+Utah,UT,84898.83
+Idaho,ID,83570.08
+Kansas,KS,82276.84
+Nebraska,NE,77353.73
+South Dakota,SD,77116.49
+Washington,WA,71299.64
+North Dakota,ND,70699.79
+Oklahoma,OK,69898.19
+Missouri,MO,69704.31
+Florida,FL,65754.59
+Wisconsin,WI,65497.82
+Georgia,GA,59424.77
+Illinois,IL,57914.38
+Iowa,IA,56271.55
+New York,NY,54556
+North Carolina,NC,53818.51
+Arkansas,AR,53178.62
+Alabama,AL,52419.02
+Louisiana,LA,51839.7
+Mississippi,MS,48430.19
+Pennsylvania,PA,46055.24
+Ohio,OH,44824.9
+Virginia,VA,42774.2
+Tennessee,TN,42143.27
+Kentucky,KY,40409.02
+Indiana,IN,36417.73
+Maine,ME,35384.65
+South Carolina,SC,32020.2
+West Virginia,WV,24229.76
+Maryland,MD,12406.68
+Hawaii,HI,10930.98
+Massachusetts,MA,10554.57
+Vermont,VT,9614.26
+New Hampshire,NH,9349.94
+New Jersey,NJ,8721.3
+Connecticut,CT,5543.33
+Delaware,DE,2489.27
+Rhode Island,RI,1545.05
