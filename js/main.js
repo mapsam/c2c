@@ -57,20 +57,15 @@ var waka = [
 ];
 
 // setting up main index map parameters for d3
-var width = 750, 
-	height = 450;
 
-var svg = d3.select("#indexMap").append("svg") 
-	.attr("width", width)
-	.attr("height", height); 
+var scale = 1000;
 
-var projection = d3.geo.albers() 
-	.scale(950)
-	.translate([width / 2, height / 2])
-	.precision(.1);
+var projection = d3.geo.stereographic().translate([0, 0]).scale(scale).clipAngle(90);
 
 var path = d3.geo.path()  
 	.projection(projection);  
+
+
 
 // loading the topojson file with our states
 queue()
@@ -87,105 +82,49 @@ function makeMap(error, state) {
 	// let's talk about what's happening here instead of me commenting it
 	// you can read http://giscollective.org/d3-topojson-interaction/
 	// if you want to learn more about topojson interaction :)
-	svg.selectAll('.land')
+	// svg.selectAll('.land')
+	// 	.data(topojson.feature(state, state.objects.usStates).features)
+	// 	.enter()
+	// 	.append('path')
+	// 	.attr('class', 'land')
+	// 	.attr('d', path)
+	// 	.on('mouseover', highlight)
+	// 	.on('mouseout', lowlight)
+	// 	.on('click', selection);
+
+	// new stuff from milstead
+	var svg = d3.select('#map').selectAll('svg')
 		.data(topojson.feature(state, state.objects.usStates).features)
-		.enter()
-		.append('path')
-		.attr('class', 'land')
-		.attr('d', path)
-		.on('mouseover', highlight)
-		.on('mouseout', lowlight)
-		.on('click', selection);
-}
-
-// area by circle volumes
-var w = 200,
-	h = 200;
-
-var svgCircles = d3.select("#volumes").append("svg")
-	.attr("width", w)
-	.attr("height", h);
-
-
-
-// selection variables
-var selectCount = 0; // if at two this means we've chosen to objects to compare so don't choose anymore and rest
-var first = null; // used to build information within the other d3 container (the circles) from the first selection
-var second = null; // same as first, but second choice information
-
-// function that is supposed to be a hover animation on the index map
-function highlight(d) {
-	d3.select(this).style('opacity', 0.8);
-}
-// same, but mouse leaving the object go back to normal opacity
-function lowlight(d) {
-	d3.select(this).style('opacity', 1);
-}
-
-// this is the big function that runs when you click an object on the index map
-// passed with 'd' which is the data variable from d3 for the specific object you have chosen
-// this will allow us to grab the 'ID' which is within the property named STATE_ABBR
-function selection(d) {
-	selectCount++;
-	if (selectCount <= 1) {
-		d3.select(this).style('fill', '#B2AD28'); // highlight the clicked state with blue fill
-		stateID = d.properties.STATE_ABBR; // assign 'state' with STATE_ABBR value
-		state = getValue(waka, stateID); // with the ID from STATE_ABBR, find the match value in the json object and return array of values
-		first = state[1]; // assign value to first object chosen
-		$('#first').append(state[0]); // append state to <p id="lineup"></p> so we can see what we've chosen
-		$('#number').append(state[1]); // append the value so we can see the raw number
-	} else if (selectCount <= 2) {
-		d3.select(this).style('fill', '#458FB2'); // this is the same as the above functions but for second click
-		stateID = d.properties.STATE_ABBR;
-		state = getValue(waka, stateID);
-		second = state[1];
-		areas = [first, second]; // build array with first and second values used in creating circles via d3
-		drawCircle(areas); // pass values as data array which can be used in d3's .data() function
-		$('#second').append(' '+state[0]);
-		$('#number').append(' | '+state[1]);
-	} else { // this resets everything on a third click so we can do the whole process again with other choices
-		selectCount = 0;
-		firstSelect = null;
-		secondSelect = null;
-		svgCircles.selectAll('circle').remove();
-		d3.selectAll('.land').attr('class', 'land');
-		$('#first').html('');
-		$('#second').html('');
-		$('#number').html('');
+		.enter().append('svg')
+		.each(function(d){
+			d.area = d3.geo.area(d);
+			var cWidth = $('#map').width();
+			var cHeight = $('#map').height();
+			var svg = d3.select(this),
+					b = d3.geo.bounds(d),
+					centroid = [.5 * (b[0][0] + b[1][0]), .5 * (b[0][1] + b[1][1])];
+			projection.rotate(Math.abs(b[0][1]) === -90 ? [0, 90] : Math.abs(b[1][1]) === 90 ? [0, -90] : [-centroid[0], -centroid[1]]);
+			var bounds = path.bounds(d),
+          area = path.area(d),
+          s = Math.sqrt(d.area / area) * scale,
+          dx = bounds[1][0] - bounds[0][0],
+          dy = bounds[1][1] - bounds[0][1];
+      svg 
+        .attr("width", dx * s + 50)
+        .attr("height", dy * s + 50)
+        .attr("class", "state")
+        .attr("style", "margin-left:"+(cWidth-(dx*s+50))/2+"px;margin-top:"+(cHeight-(dy*s+50))/2+"px;")
+        .attr("data-area", area)
+      .append("g")
+        .attr("transform", "scale(" + s + ")translate(" + [10 - bounds[0][0], 10 - bounds[0][1]] + ")")
+        // .attr("transform", "translateX(" + (-(dx*s+30)) + ")")
+      .append("path")
+      	.style("fill", "none")
+      	.style("stroke", "steelblue")
+      	.style("stroke-width", .5)
+        .attr("d", path);
+		});
 	}
-} 
-
-function getValue(json, item) {
-	for (var i in json) { // match the topojson ID with the key value in 'waka' json object
-		if (json[i].abbrev == item) {
-			return [json[i].state, json[i].area]; // return the key value of 'number' from that matched object
-		}
-	}
-}
-
-function drawCircle(area) {
-	var circles = svgCircles.selectAll('circle')
-		.data(area) // uses first and second value as parameters
-		.enter()
-		.append('circle');
-
-	circles.attr('cx', w/2) // x axis location (half of the width of the svg plane)
-		.attr('cy', h/2) // y axis location
-		.attr('stroke', function(d){
-			if (d == first) {
-				return '#B2AD28';
-			} else {
-				return '#458FB2';
-			}
-		})
-		.attr('stroke-width', '4px')
-		.attr('fill', 'none')
-		.attr('r', function(d) { // creates radius based on value (divided by 10 to keep things small right now)
-			return d / 1000; // we will have to find the radius based on the total area eventually so these 
-					// circles are more representative of the area of the object we've clicked
-		})
-		.attr('opacity', 0.5); // makes sure there are two circles (eventually will just be outlines I think)
-} 
 
 }
 

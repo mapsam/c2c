@@ -19,6 +19,16 @@ nav h1 {
 	padding:5px 0 5px 30px;
 	margin:0;
 }
+#map {
+	display:block;
+	width:500px;
+	height:500px;
+	margin:auto;
+}
+svg {
+	vertical-align: middle;
+	position:absolute;
+}
 #main {
 	display:block;
 	margin:auto;
@@ -35,24 +45,10 @@ h1 {
 }
 
 /* Map Styles */
-#indexMap {
-	display:inline-block;
-}
-.land {
-	fill:#c0c0c0;
-	stroke:#fff;
-	stroke-width:2px;
-}
-.land:hover {
-	fill:#c0c0c0;
-}
-.circle {
-	stroke-width:2px;
-	fill:none;
-}
-
-#compareMap {
-	display:block;
+.state {
+	fill: none;
+	stroke-width:1px;
+	/*display:none;*/
 }
 
 
