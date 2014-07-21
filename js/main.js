@@ -39,7 +39,7 @@ function makeMap(error, state) {
 	// 	.on('mouseover', highlight)
 	// 	.on('mouseout', lowlight)
 	// 	.on('click', selection);
-	
+
 
 	// new stuff from milstead
 	var svg = d3.select('#map').selectAll('svg')
@@ -86,11 +86,15 @@ function makeMap(error, state) {
 		var newCountryID = $(this).val();
 		console.log(newCountryID);
 		if($(this).attr('id')==='cOne') {
+
 			$('.one-active').attr('class', 'state');
 			$('#'+newCountryID).attr('class', 'state one-active');
+
 		} else {
+
 			$('.two-active').attr('class', 'state');
 			$('#'+newCountryID).attr('class', 'state two-active');
+
 		}
 		
 	});
