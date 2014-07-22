@@ -5,66 +5,71 @@ body {
 	font-family:helvetica;
 	background:#fff;
 }
+.cf:before,
+.cf:after {
+    content:" ";
+    display:table;
+}
+.cf:after {
+    clear:both;
+}
+.cf {
+    *zoom:1;
+}
+.container {
+	width:80%;
+	margin:auto;
+}
+
+/* Nav Form UI */
 nav {
 	position:fixed;
 	width:100%;
-	background:rgba(255,255,255,0.8);
-	border-bottom:1px solid #c0c0c0;
 }
-nav h1 {
-	font-size:1.5em;
-	color:#555;
-	font-weight:600;
-	float:left;
-	padding:5px 0 5px 30px;
-	margin:0;
-}
-#main {
-	display:block;
-	margin:auto;
-	width:960px;
-	padding:60px 0 30px 0;
-}
-
-/* Article Styles */
-p {
-	font-size:0.9em;
-	color:#555;
-}
-h1 {
-}
-
-/* Map Styles */
-#indexMap {
-	display:inline-block;
-}
-.land {
-	fill:#c0c0c0;
-	stroke:#fff;
-	stroke-width:2px;
-}
-.land:hover {
-	fill:#c0c0c0;
-}
-.circle {
-	stroke-width:2px;
-	fill:none;
-}
-
-#compareMap {
-	display:block;
-}
-
-
-/* Info Pan Styles */
-#info {
-	display:inline-block;
+nav section {
+	padding:20px 0;
+	background-color:#f6f6f6;
+	border-bottom:1px solid #e5e5e5;
 	text-align:center;
-	font-weight:600;
 }
-#first {
-	color:#B2AD28;
+form select {
+	width:100px;
+	display:inline-block;
+	background-color:#fff;
+	box-shadow:1px 2px 0 #c0c0c0;
+	font-size:1.2em;
+	color:steelblue;
+	margin-right:20px;
 }
-#second {
-	color:#458FB2;
+form select:hover {
+	cursor:pointer;
+}
+
+/* Map Elements */
+#map {
+	display:block;
+	width:500px;
+	height:500px;
+	margin:auto;
+	padding-top:100px;
+}
+svg {
+	vertical-align: middle;
+	position:absolute;
+}
+.state {
+	fill: none;
+	stroke-width:1px;
+	opacity:0;
+}
+.state.one-active,
+.state.two-active {
+	opacity:.8;
+	stroke-width:.5px;
+}
+.state.one-active {
+	stroke:#b44682;
+}
+.state.two-active {
+	stroke:#82b446;
 }
