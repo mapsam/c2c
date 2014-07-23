@@ -6,7 +6,7 @@ function init() { // runs on page load
 
 // setting up main index map parameters for d3
 
-var scale = 2000;
+var scale = 500;
 
 var projection = d3.geo.stereographic().translate([0, 0]).scale(scale).clipAngle(90);
 
@@ -17,14 +17,14 @@ var path = d3.geo.path()
 
 // loading the topojson file with our states
 queue()
-	.defer(d3.json, 'data/states.json')
+	.defer(d3.json, 'data/countries-topo.json')
 	.await(makeMap);
 
 // main function that creates the map. The biggest thing here is
 // selectAll() which creates a unique SVG object for each state instead
 // of a single svg object or group that wouldn't allow us to access 
 // each state's properties (used to match with waka json object)
-function makeMap(error, state) {
+function makeMap(error, country) {
 
 	// countries index
 	// let's talk about what's happening here instead of me commenting it
@@ -43,12 +43,12 @@ function makeMap(error, state) {
 
 	// new stuff from milstead
 	var svg = d3.select('#map').selectAll('svg')
-		.data(topojson.feature(state, state.objects.usStates).features)
+		.data(topojson.feature(country, country.objects.countries).features)
 		.enter().append('svg')
 		.each(function(d){
 			// get the data for the svg
-			var name = d.properties.STATE_ABBR,
-					cID = d.properties.STATE_ABBR
+			var name = d.properties.admin,
+				cID = d.properties.adm0_a3
 
 			// create select lists
 			$('.country-select').append($('<option></option>').attr('value', cID).text(name));
